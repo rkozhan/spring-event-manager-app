@@ -1,7 +1,7 @@
-package com.example.students.controller;
-import com.example.students.model.Student;
-import com.example.students.repository.StudentRepository;
-import com.example.students.resource.StudentRequest;
+package eventManager.controller;
+import eventManager.model.Student;
+import eventManager.repository.StudentRepository;
+import eventManager.resource.StudentRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

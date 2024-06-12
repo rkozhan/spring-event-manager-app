@@ -1,5 +1,5 @@
-package com.example.students.repository;
-import com.example.students.model.Student;
+package eventManager.repository;
+import eventManager.model.Student;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

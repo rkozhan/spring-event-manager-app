@@ -1,14 +1,14 @@
-package com.example.students;
+package eventManager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StudentsApplication {
+public class EventManager {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(StudentsApplication.class, args);
+		SpringApplication.run(EventManager.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.example.students.model;
+package eventManager.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
