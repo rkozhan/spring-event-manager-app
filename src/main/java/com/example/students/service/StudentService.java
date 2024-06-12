@@ -1,5 +1,5 @@
-package com.example.students.sevice;
-
+package com.example.students.service;
+/*
 import com.example.students.model.Student;
 
 import java.util.List;
@@ -11,3 +11,5 @@ public interface StudentService {
     Student updateStudent(Student student);
     void deleteStudent(String email);
 }
+
+ */
