@@ -1,42 +1,60 @@
 package com.example.students.controller;
-
 import com.example.students.model.Student;
-import com.example.students.sevice.StudentService;
+import com.example.students.repository.StudentRepository;
+import com.example.students.resource.StudentRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/students")
 @AllArgsConstructor
 public class StudentController {
-    private final StudentService service;
-    @GetMapping
-    public List<Student> findAllStudents () {
-        return service.findAllStudents();
+
+    private final StudentRepository repository;
+    @GetMapping()
+    public ResponseEntity<List<Student>> findAllStudents () {
+
+        return ResponseEntity.ok(this.repository.findAll());
     }
 
-    @PostMapping("save_student")
-    //public Student saveStudent(@RequestBody Student student) {
-        //return service.saveStudent(student);
-    //}
-    public String saveStudent(@RequestBody Student student) {
-        service.saveStudent(student);
-        return "student saved successfully";
-    }
-    @GetMapping("/{email}")
-    public Student findByEmail(@PathVariable String email) {
-        return service.findByEmail(email);
+    @PostMapping("/save")
+    public ResponseEntity<Student> saveStudent(@RequestBody StudentRequest request) {
+        Student student = new Student();
+        student.setFirstName(request.getFirstName());
+        student.setLastName(request.getLastName());
+        student.setEmail(request.getEmail());
+        student.setDateOfBirth(request.getDateOfBirth());
+        return ResponseEntity.status(201).body(this.repository.save(student));
     }
 
-    @PutMapping("update_student")
-    public Student updateStudent(@RequestBody Student student) {
-        return service.updateStudent(student);
+    @GetMapping("/{id}")
+    public ResponseEntity getStudentById(@PathVariable String id) {
+
+        Optional<Student> student = this.repository.findById(id);
+
+        if(student.isPresent()) {
+            return ResponseEntity.ok(student.get());
+        } else {
+            return ResponseEntity.ok("The student with id: " + id + " was not found.");
+        }
     }
 
-    @DeleteMapping("delete_student/{email}")
-    public void deleteStudent(@PathVariable String email) {
-        service.deleteStudent(email);
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteStudentById(@PathVariable String id) {
+
+        Optional<Student> student = this.repository.findById(id);
+
+        if(student.isPresent()) {
+            this.repository.deleteById(id);
+            return ResponseEntity.ok("Success.");
+        } else {
+            return ResponseEntity.ok("The student with id: " + id + " was not found.");
+        }
     }
+
+
 }
