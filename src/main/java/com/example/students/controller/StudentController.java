@@ -43,6 +43,18 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity getStudentByEmail(@PathVariable String email) {
+
+        Optional<Student> student = this.repository.findByEmail(email);
+
+        if(student.isPresent()) {
+            return ResponseEntity.ok(student.get());
+        } else {
+            return ResponseEntity.ok("The student with email: " + email + " was not found.");
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteStudentById(@PathVariable String id) {
 
