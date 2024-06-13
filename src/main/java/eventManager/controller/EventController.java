@@ -1,9 +1,7 @@
 package eventManager.controller;
 
 import eventManager.model.Event;
-import eventManager.model.Student;
 import eventManager.repository.EventRepository;
-import eventManager.resource.StudentRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
