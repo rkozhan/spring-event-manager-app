@@ -4,6 +4,7 @@ import eventManager.model.User;
 import eventManager.repository.UserRepository;
 import eventManager.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,18 +22,16 @@ public class UserController {
         return ResponseEntity.ok(service.findAllUsers());
     }
 
-    //@PostMapping("/save")
-    //public ResponseEntity<User> saveUser(@RequestBody User user) {
-    //    return ResponseEntity.ok(this.repo.save(user));
-    //}
+
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
-        // Check if the email already exists
-        if (service.findByEmail(user.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email already exists");
+        try {
+            User registeredUser = service.registerUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        return ResponseEntity.ok(service.registerUser(user));
     }
 
     @GetMapping("/{id}")
@@ -43,7 +42,8 @@ public class UserController {
         if(user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
-            return ResponseEntity.ok("The user with id: " + id + " was not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The user with ID: " + id + " was not found.");
         }
     }
 
@@ -55,7 +55,8 @@ public class UserController {
         if(user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
-            return ResponseEntity.ok("The user with id: " + email + " was not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The user with email: " + email + " was not found.");
         }
     }
 
@@ -71,4 +72,6 @@ public class UserController {
             return ResponseEntity.ok("The user with id: " + id + " was not found.");
         }
     }
+
+    //TODO update
 }

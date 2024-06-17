@@ -19,16 +19,21 @@ public class UserServiceImpl  implements UserService{
     }
     @Override
     public User registerUser(User user) {
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
         return repository.save(user);
+    }
+
+    @Override
+    public Optional<User> findById(String id) {
+        return repository.findById(id);
     }
     @Override
     public Optional<User> findByEmail(String email) {
         return repository.findByEmail(email);
     }
-    @Override
-    public Optional<User> findById(String id) {
-        return repository.findById(id);
-    }
+
     @Override
     public User updateUser(User user) {
         return null; //TODO update
