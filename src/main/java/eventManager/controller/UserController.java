@@ -1,5 +1,6 @@
 package eventManager.controller;
 
+import eventManager.api.UserRequest;
 import eventManager.model.User;
 import eventManager.repository.UserRepository;
 import eventManager.service.UserService;
@@ -25,8 +26,13 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody UserRequest request) {
         try {
+            User user = new User();
+            user.setUsername(request.getUsername());
+            user.setPassword(request.getPassword());
+            user.setEmail(request.getEmail());
+            user.setRoles(request.getRoles());
             User registeredUser = service.registerUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
         } catch (IllegalArgumentException e) {

@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 @Repository
 public class InMemoryEventDAO {
     private final List<Event> EVENTS = new ArrayList<>();
+    //TODO @PostConstruct private void loadEventsFromDB to EVENTS
 
     public List<Event> findAll() {
         return EVENTS;
