@@ -15,4 +15,11 @@ public class UserRequest {
     private String password;
     private String email;
     private Set<UserRole> roles;
+
+    public UserRequest(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles.add(UserRole.ROLE_USER); // Add ROLE_USER as default role
+    }
 }

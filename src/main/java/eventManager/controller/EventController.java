@@ -6,6 +6,7 @@ import eventManager.service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class EventController {
     private final EventService service;
 
     @GetMapping()
+    @PreAuthorize("permitAll")
     public ResponseEntity<List<Event>> findAllEvents () {
 
         return ResponseEntity.ok(this.service.findAll());
