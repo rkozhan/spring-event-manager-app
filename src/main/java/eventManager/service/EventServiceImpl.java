@@ -4,6 +4,8 @@ import eventManager.model.Event;
 import eventManager.repository.EventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +33,6 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    @Transactional
     public void deleteById(String id) {
         repository.deleteById(id);
     }

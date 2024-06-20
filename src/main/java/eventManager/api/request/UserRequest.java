@@ -1,4 +1,4 @@
-package eventManager.api;
+package eventManager.api.request;
 
 import eventManager.resource.UserRole;
 import lombok.AllArgsConstructor;

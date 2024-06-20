@@ -3,6 +3,8 @@ package eventManager.service;
 import eventManager.model.Registration;
 import eventManager.repository.RegistrationRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,4 +43,5 @@ public class RegistrationServiceImpl implements RegistrationService {
     public List<Registration> findByEventId(String eventId) {
         return repository.findByEventId(eventId);
     }
+
 }

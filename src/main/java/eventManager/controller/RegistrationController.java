@@ -1,16 +1,15 @@
 package eventManager.controller;
-
 import eventManager.model.Registration;
 import eventManager.model.User;
 import eventManager.repository.RegistrationRepository;
 import eventManager.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/api/v1/registrations")
@@ -23,7 +22,7 @@ public class RegistrationController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public ResponseEntity<Registration> saveRegistration(@RequestBody Registration registration) {
         return ResponseEntity.ok(service.create(registration));
 
@@ -32,7 +31,6 @@ public class RegistrationController {
 
     @GetMapping("/{id}")
     public ResponseEntity getRegistrationById(@PathVariable String id) {
-
         Optional<Registration> registration = service.findById(id);
 
         if(registration.isPresent()) {
@@ -44,7 +42,6 @@ public class RegistrationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteRegistrationById(@PathVariable String id) {
-
         Optional<Registration> registration = service.findById(id);
 
         if(registration.isPresent()) {

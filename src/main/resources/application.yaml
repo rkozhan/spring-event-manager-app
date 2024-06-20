@@ -3,3 +3,5 @@ spring:
     mongodb:
       uri: mongodb+srv://user1:QqOgYTrSGQ3feCNP@cluster0.tyb8rsa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: eventsdb
+server:
+  port: 5454
