@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class Event {
     private String location;
     private String category;
     private String createdBy;
+    private Set<String> imgUrls;
 
     public Event(String title, String description, LocalDate date, LocalTime time, String location, String category, String createdBy) {
         this.title = title;
@@ -32,5 +34,6 @@ public class Event {
         this.location = location;
         this.category = category;
         this.createdBy = createdBy;
+        this.imgUrls = imgUrls;
     }
 }

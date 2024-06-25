@@ -36,6 +36,7 @@ public class SecurityConfig {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         //.requestMatchers("/api/v1/users/register").permitAll()  // Restrict access to admin endpoints
+                        .requestMatchers("/api/v1/events").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                         //.requestMatchers("/api/v1/users/admin").hasRole("ADMIN")   // Restrict access to admin endpoints
@@ -63,7 +64,8 @@ public class SecurityConfig {
                 config.setAllowedOrigins(Arrays.asList(
                         "http://localhost:8080",
                         "http://localhost:5173",
-                        "http://localhost:4200"
+                        "http://localhost:4200",
+                        "http://localhost:3000"
                 ));
                 config.setAllowedMethods(Collections.singletonList("*"));
                 config.setAllowCredentials(true);

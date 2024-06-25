@@ -76,7 +76,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> signIn(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
@@ -87,7 +87,7 @@ public class AuthController {
         String jwt = JwtProvider.generateToken(authentication);
 
         AuthResponse resp = new AuthResponse();
-        resp.setMessage("signin success");
+        resp.setMessage("login success");
         resp.setJwt(jwt);
 
         return new ResponseEntity<>(resp, HttpStatus.CREATED);
