@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -35,9 +36,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        //.requestMatchers("/api/v1/users/register").permitAll()  // Restrict access to admin endpoints
+                        .requestMatchers("/auth/login").permitAll() // Restrict access to admin endpoints
                         .requestMatchers("/api/v1/events").permitAll()
-                        .requestMatchers("/api/**").authenticated()
+                        //.requestMatchers("/api/v1/events/save").hasAnyRole("MANAGER")
+                        .requestMatchers("/api/v1/events/save").hasAnyAuthority("MANAGER")
+                        .requestMatchers( HttpMethod.DELETE,"api/v1/events/{id}").hasAnyRole("MANAGER")
+                        .requestMatchers( HttpMethod.GET,"api/v1/events/**").authenticated()
+                        //.requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                         //.requestMatchers("/api/v1/users/admin").hasRole("ADMIN")   // Restrict access to admin endpoints
                         //.requestMatchers( "api/v1/events").permitAll()

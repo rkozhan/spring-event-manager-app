@@ -34,6 +34,5 @@ public class Event {
         this.location = location;
         this.category = category;
         this.createdBy = createdBy;
-        this.imgUrls = imgUrls;
     }
 }

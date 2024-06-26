@@ -1,0 +1,101 @@
+[33mcommit bc966a847bbfe8ff662483fc8c1535bf9e493d70[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mevent[m[33m, [m[1;31morigin/event[m[33m)[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 26 10:18:14 2024 +0200
+
+    before refactoring
+
+[33mcommit 6985291913ef37f8f81fb0e0f8b9901ce5a6be9e[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Tue Jun 25 08:57:33 2024 +0200
+
+    add user roles to jwt
+
+[33mcommit 8f6821482af8760b8e0e5b84e99fd674c1e610e9[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Thu Jun 20 12:32:44 2024 +0200
+
+    add jwt token stuff
+
+[33mcommit ed9df8410863cad4a8044b7c7cde0799a9e8a92a[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 19 08:42:38 2024 +0200
+
+    implement user autorisation
+
+[33mcommit ab69fbb5fe0f23fb19e374fd37027546671aceba[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Tue Jun 18 10:31:25 2024 +0200
+
+    add enum for user roles, registration service
+
+[33mcommit e1ef84f50e6ab21b0e96dfa4027136b4770b1754[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Tue Jun 18 10:29:04 2024 +0200
+
+    add enum for user roles, registration service
+
+[33mcommit a2c570c88c3d640ab3a2110b762d8f94db4a9748[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Mon Jun 17 14:40:23 2024 +0200
+
+    add event service + impl, inMemory event dao + impl
+
+[33mcommit ca20c63422321acd64e01e6d3bd6a25a14b358bf[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Mon Jun 17 11:43:30 2024 +0200
+
+    add user service and implementation
+
+[33mcommit 9765dcc107e0eb81c0eb2044fb6d6bbb100207f3[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Mon Jun 17 08:44:22 2024 +0200
+
+    add user, registration
+
+[33mcommit d32ad0106e7e9a67316ac69c9c1d982f77d207ba[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Thu Jun 13 11:06:21 2024 +0200
+
+    add user, registration
+
+[33mcommit 1db02e38b29d174f2f15adcf579b317db023130b[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 12 20:46:40 2024 +0200
+
+    add event
+
+[33mcommit 773c0d6142d860ae21162c75bfc03c8b3cc4cc80[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 12 20:20:44 2024 +0200
+
+    start event mgr
+
+[33mcommit 85604041be88b65b162ab5869e2dd1e86525eb48[m[33m ([m[1;31morigin/connection-with-mongoDB[m[33m, [m[1;32mconnection-with-mongoDB[m[33m)[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 12 19:50:17 2024 +0200
+
+    small corrections
+
+[33mcommit b06bd55582cef11bf3fa32658c43d942923f9602[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 12 13:47:49 2024 +0200
+
+    add getByEmail
+
+[33mcommit bc87db1a9cfa2a991e198552a779ac7185061aec[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Wed Jun 12 13:29:04 2024 +0200
+
+    add mongoDb connection
+
+[33mcommit dc0fd8f57d5ae35dfafe83c06b093cd38380980f[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Tue Jun 11 11:50:16 2024 +0200
+
+    del firebase conn
+
+[33mcommit 8e6e7aeb7b67a6ebbea8c7fab0507242bf0e2bbf[m
+Author: Roman <yalta.vrk@gmail.com>
+Date:   Tue Jun 11 11:27:33 2024 +0200
+
+    first commit
