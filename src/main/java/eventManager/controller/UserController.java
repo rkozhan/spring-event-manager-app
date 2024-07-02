@@ -15,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-
     private final UserService service;
     private final JwtProvider jwtProvider;
 
@@ -24,6 +23,7 @@ public class UserController {
         this.service = service;
         this.jwtProvider = jwtProvider;
     }
+
 
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers () {
