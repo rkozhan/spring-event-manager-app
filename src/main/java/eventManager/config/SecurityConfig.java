@@ -36,25 +36,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/login").permitAll() // Restrict access to admin endpoints
-                        .requestMatchers("/api/v1/events").permitAll()
-                        //.requestMatchers("/api/v1/events/save").hasAnyRole("MANAGER")
-                        .requestMatchers("/api/v1/events/save").hasAnyAuthority("MANAGER")
-                        .requestMatchers( HttpMethod.DELETE,"api/v1/events/{id}").hasAnyRole("MANAGER")
-                        .requestMatchers( HttpMethod.GET,"api/v1/events/**").authenticated()
-                        //.requestMatchers("/api/**").authenticated()
-                        .anyRequest().permitAll()
-                        //.requestMatchers("/api/v1/users/admin").hasRole("ADMIN")   // Restrict access to admin endpoints
-                        //.requestMatchers( "api/v1/events").permitAll()
-                        //.requestMatchers( HttpMethod.GET,"api/v1/events/**").permitAll()
-                        //.requestMatchers( HttpMethod.POST,"api/v1/events/**").hasAnyRole("MANAGER")
-                        //.requestMatchers( HttpMethod.DELETE,"api/v1/events/**").hasAnyRole("MANAGER")
-                        //.requestMatchers( "api/v1/events/save").hasAnyRole("MANAGER")
-                        //.requestMatchers("api/v1/users", "api/v1/users/**").permitAll()       // Allow access to registration only for unauthenticated users
-                        //.requestMatchers("api/v1/registrations", "api/v1/registrations/**").hasAnyRole("MANAGER")
+                        .requestMatchers("/auth/login", "/auth/signup", "/api/v1/events").permitAll()
+                        .anyRequest().authenticated()
                 )
-                //.formLogin(AbstractAuthenticationFilterConfigurer::permitAll) // Allow unrestricted access to the login page
-                //.logout(LogoutConfigurer::permitAll) // Allow unrestricted access to the logout endpoint
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));

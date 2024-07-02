@@ -1,8 +1,10 @@
 package eventManager.controller;
 
+import eventManager.config.JwtProvider;
 import eventManager.model.User;
 import eventManager.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +14,16 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@AllArgsConstructor
 public class UserController {
+
     private final UserService service;
+    private final JwtProvider jwtProvider;
+
+    @Autowired
+    public UserController(UserService service, JwtProvider jwtProvider) {
+        this.service = service;
+        this.jwtProvider = jwtProvider;
+    }
 
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers () {
@@ -47,6 +56,33 @@ public class UserController {
                     .body("The user with email: " + email + " was not found.");
         }
     }
+
+
+    @GetMapping("/me")
+    public ResponseEntity getMe(@RequestHeader("Authorization") String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7); // Remove "Bearer " prefix
+        }
+
+        String email;
+        try {
+            email = jwtProvider.getEmailFromToken(token);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid JWT token");
+        }
+
+        Optional<User> user = service.findByEmail(email);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The user with email: " + email + " was not found.");
+        }
+    }
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUserById(@PathVariable String id) {

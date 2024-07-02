@@ -30,15 +30,15 @@ public class EventController {
     public ResponseEntity<Event> saveEvent(@RequestBody Event event) {
         return ResponseEntity.ok(service.save(event));
     }
-
+    //@PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
-    //@PreAuthorize("hasRole('ROLE_MANAGER')")  //TODO not working -> 403
+    //@PreAuthorize("hasRole('ROLE_EDITOR')")  //TODO not working -> 403
     //@PreAuthorize("isAuthorised")
     public ResponseEntity getEventById(@PathVariable String id) {
 
         Optional<Event> event = service.findById(id);
 
-        if(event.isPresent()) {
+        if (event.isPresent()) {
             return ResponseEntity.ok(event.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

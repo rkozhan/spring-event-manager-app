@@ -1,5 +1,6 @@
 package eventManager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eventManager.resource.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,11 @@ public class User {
     @Id
     private String id;
     private String username;
+
+    @JsonIgnore
     private String password;
     private String email;
+    @JsonIgnore
     private Set<UserRole> roles;
 
     public User(String username, String password, String email, Set<UserRole> roles) {
