@@ -1,5 +1,4 @@
 package eventManager.service;
-
 import eventManager.model.Registration;
 import eventManager.repository.RegistrationRepository;
 import lombok.AllArgsConstructor;

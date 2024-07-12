@@ -30,6 +30,7 @@ public class EventController {
     public ResponseEntity<Event> saveEvent(@RequestBody Event event) {
         return ResponseEntity.ok(service.save(event));
     }
+
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     //@PreAuthorize("hasRole('ROLE_EDITOR')")  //TODO not working -> 403

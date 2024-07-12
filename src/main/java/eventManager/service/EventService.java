@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface EventService {
     List<Event> findAll();
+
+
     Event save(Event event);
     Optional<Event> findById(String id);
     void deleteById(String id);

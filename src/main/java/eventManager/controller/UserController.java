@@ -24,7 +24,6 @@ public class UserController {
         this.jwtProvider = jwtProvider;
     }
 
-
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers () {
         return ResponseEntity.ok(service.findAllUsers());

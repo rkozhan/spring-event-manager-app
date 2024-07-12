@@ -36,8 +36,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/login", "/auth/signup", "/api/v1/events").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers( "/t", "/auth/login", "/auth/signup", "/api/v1/events").permitAll()
+                        //.anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)

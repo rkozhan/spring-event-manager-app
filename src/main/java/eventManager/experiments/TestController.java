@@ -1,4 +1,4 @@
-package eventManager.controller;
+package eventManager.experiments;
 
 import eventManager.config.JwtProvider;
 import eventManager.config.JwtTokenValidator;

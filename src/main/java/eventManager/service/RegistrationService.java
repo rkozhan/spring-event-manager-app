@@ -1,8 +1,6 @@
 package eventManager.service;
 
 import eventManager.model.Registration;
-import eventManager.model.User;
-
 import java.util.List;
 import java.util.Optional;
 
