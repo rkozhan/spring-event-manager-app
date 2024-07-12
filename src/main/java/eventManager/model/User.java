@@ -2,6 +2,7 @@ package eventManager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import eventManager.resource.UserRole;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Document("users")
 public class User {
     @Id

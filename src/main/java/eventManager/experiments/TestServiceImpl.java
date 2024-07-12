@@ -69,6 +69,15 @@ public class TestServiceImpl  implements TestService {
     }
 
     @Override
+    public void deleteById(String id) {
+        if (repo.existsById(id)) {
+            repo.deleteById(id);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "TestEntity with id " + id + " not found");
+        }
+    }
+
+    @Override
     public TestEntity findById(String id) {
         return repo.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "TestEntity with id " + id + " not found"));

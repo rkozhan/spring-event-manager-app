@@ -9,6 +9,8 @@ public interface TestService {
 
     TestEntity update(TestEntity testEntity);
 
+    void deleteById(String id);
+
     TestEntity findById(String id);
 
     TestDetailedEntity getDetailedById(String id);

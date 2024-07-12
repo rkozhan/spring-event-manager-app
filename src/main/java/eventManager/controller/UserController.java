@@ -1,6 +1,8 @@
 package eventManager.controller;
 
+import eventManager.api.response.UserDetailedResponse;
 import eventManager.config.JwtProvider;
+import eventManager.experiments.TestDetailedEntity;
 import eventManager.model.User;
 import eventManager.service.UserService;
 import lombok.AllArgsConstructor;
@@ -31,16 +33,8 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity getUserById(@PathVariable String id) {
-
-        Optional<User> user = service.findById(id);
-
-        if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The user with ID: " + id + " was not found.");
-        }
+    public User getUserById(@PathVariable String id) {
+        return service.findById(id);
     }
 
     @GetMapping("/email/{email}")
@@ -73,7 +67,8 @@ public class UserController {
 
         Optional<User> user = service.findByEmail(email);
         if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+            //return ResponseEntity.ok(user.get());
+            return ResponseEntity.ok(service.getDetailedById(user.get().getId()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("The user with email: " + email + " was not found.");
@@ -86,15 +81,19 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUserById(@PathVariable String id) {
 
-        Optional<User> user = service.findById(id);
+        User user = service.findById(id);
 
-        if(user.isPresent()) {
+        //if(user.isPresent()) {
             service.deleteById(id);
             return ResponseEntity.ok("Success.");
-        } else {
-            return ResponseEntity.ok("The user with id: " + id + " was not found.");
-        }
-    }
+        //} else {
+          //  return ResponseEntity.ok("The user with id: " + id + " was not found.");
+        //}
+    }//TODO update
 
-    //TODO update
+
+    @GetMapping("/detailed/{id}")
+    public UserDetailedResponse getDetailedById(@PathVariable String id) {
+        return service.getDetailedById(id);
+    }
 }
