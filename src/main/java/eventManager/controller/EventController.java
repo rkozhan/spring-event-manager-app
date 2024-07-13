@@ -23,7 +23,7 @@ public class EventController {
 
     @GetMapping()
     public ResponseEntity<List<Event>> findAllEvents () {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(service.getAllUpcomingEvents());
     }
 
     @PostMapping("/save")

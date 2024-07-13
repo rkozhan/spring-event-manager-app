@@ -1,5 +1,6 @@
 package eventManager.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Document("events")
 public class Event {
     @Id
@@ -25,6 +27,7 @@ public class Event {
     private String category;
     private String createdBy;
     private Set<String> imgUrls;
+    private boolean isCancelled;
 
     public Event(String title, String description, LocalDate date, LocalTime time, String location, String category, String createdBy) {
         this.title = title;
@@ -34,5 +37,6 @@ public class Event {
         this.location = location;
         this.category = category;
         this.createdBy = createdBy;
+        this.isCancelled = false;
     }
 }

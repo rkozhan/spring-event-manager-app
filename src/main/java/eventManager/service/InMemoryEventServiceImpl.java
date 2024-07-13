@@ -17,6 +17,11 @@ public class InMemoryEventServiceImpl implements EventService {
     }
 
     @Override
+    public List<Event> getAllUpcomingEvents() {
+        return null;
+    }
+
+    @Override
     public Event save(Event event) {
         return repository.save(event);
     }

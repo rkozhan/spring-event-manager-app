@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface EventService {
     List<Event> findAll();
 
+    List<Event> getAllUpcomingEvents();
 
     Event save(Event event);
     Optional<Event> findById(String id);
