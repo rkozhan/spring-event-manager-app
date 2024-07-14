@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,25 +31,21 @@ public class RegistrationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getRegistrationById(@PathVariable String id) {
-        Optional<Registration> registration = service.findById(id);
-
-        if(registration.isPresent()) {
-            return ResponseEntity.ok(registration.get());
-        } else {
-            return ResponseEntity.ok("The registration with id: " + id + " was not found.");
+    public ResponseEntity<?> getRegistrationById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteRegistrationById(@PathVariable String id) {
-        Optional<Registration> registration = service.findById(id);
-
-        if(registration.isPresent()) {
+    public ResponseEntity<String> deleteRegistrationById(@PathVariable String id) {
+        try {
             service.deleteById(id);
-            return ResponseEntity.ok("Success.");
-        } else {
-            return ResponseEntity.ok("The registration with id: " + id + " was not found.");
+            return ResponseEntity.ok("The registration with id: " + id + " deleted successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         }
     }
 

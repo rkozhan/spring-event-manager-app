@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface UserService {
     List<User> findAllUsers();
     User registerUser(User user);
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
     User findById(String id);
     User update(User user);
     void deleteById(String id);

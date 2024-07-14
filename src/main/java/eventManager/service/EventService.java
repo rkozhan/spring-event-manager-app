@@ -1,17 +1,21 @@
 package eventManager.service;
-
+import eventManager.api.response.EventDetailedResponce;
+import eventManager.api.response.UserDetailedResponse;
 import eventManager.model.Event;
 import java.util.List;
 import java.util.Optional;
-
 public interface EventService {
     List<Event> findAll();
 
     List<Event> getAllUpcomingEvents();
 
     Event save(Event event);
-    Optional<Event> findById(String id);
-    void deleteById(String id);
+
+    Event findById(String id);
+
     Event update(Event event);
 
+    void deleteById(String id);
+
+    EventDetailedResponce getDetailedById(String id);
 }

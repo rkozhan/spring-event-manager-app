@@ -5,6 +5,8 @@ import eventManager.experiments.TestEntity;
 import eventManager.model.Event;
 import eventManager.model.Registration;
 import eventManager.model.User;
+import eventManager.repository.EventRepository;
+import eventManager.repository.RegistrationRepository;
 import eventManager.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,10 @@ import java.util.Optional;
 @Primary
 public class UserServiceImpl  implements UserService{
     private final UserRepository repository;
+    private final RegistrationRepository registrationRepository;
+    private final EventRepository eventRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private EventServiceImpl eventService;
-    @Autowired
-    private RegistrationServiceImpl registrationService;
 
     @Override
     public List<User> findAllUsers() {
@@ -51,33 +51,52 @@ public class UserServiceImpl  implements UserService{
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + " not found"));
     }
     @Override
-    public Optional<User> findByEmail(String email) {
-        return repository.findByEmail(email);
+    public User findByEmail(String email) {
+        return repository.findByEmail(email).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User with email " + email + " not found"));
     }
 
     @Override
     public User update(User user) {
-        Optional<User> userToUpdate = repository.findById(user.getId());
-        if (userToUpdate.isPresent()) {
-            userToUpdate.get().setUsername(user.getUsername());
-            //TODO other fields. email ?
-            return repository.save(userToUpdate.get());
-        } else {
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + user.getId() + " not found");
+        User userToUpdate = this.findById(user.getId());
+
+        String newEmail = user.getEmail();
+        if (!userToUpdate.getEmail().equals(newEmail)) {
+            if (repository.findByEmail(newEmail).isPresent()) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "An entity with the same email already exists");
+            }
         }
+
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setEmail(user.getEmail());
+            //TODO other fields...?
+        return repository.save(userToUpdate);
     }
+
     @Override
     public void deleteById(String id) {
-        repository.deleteById(id);
+        User user = this.findById(id);
+        repository.delete(user);
+        registrationRepository.deleteByUserId(id);
     }
 
     @Override
     public UserDetailedResponse getDetailedById(String id) {
         UserDetailedResponse userDetailedResponse = new UserDetailedResponse(this.findById(id));
-
-        List<Registration> userRegistrations = registrationService.findByUserId(id);
+        List<Registration> userRegistrations = registrationRepository.findByUserId(id);
         userDetailedResponse.setUserRegistrations(userRegistrations);
 
+        List<String> joinedEventsIds = registrationRepository.findByUserId(id)
+                .stream().map(Registration::getEventId).toList();
+        List<Event> joinedEvents = new ArrayList<>();
+
+        joinedEventsIds.forEach(eventId -> {
+            Optional<Event> event = eventRepository.findById(eventId);
+            event.ifPresent(joinedEvents::add);
+        });
+        userDetailedResponse.setJoinedEvents(joinedEvents);
+
+        userDetailedResponse.setCreatedEvents(eventRepository.findByCreatedBy(id));
         return userDetailedResponse;
     }
 

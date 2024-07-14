@@ -1,5 +1,6 @@
 package eventManager.service;
 
+import eventManager.api.response.EventDetailedResponce;
 import eventManager.model.Event;
 import eventManager.repository.InMemoryEventDAO;
 import lombok.AllArgsConstructor;
@@ -27,13 +28,18 @@ public class InMemoryEventServiceImpl implements EventService {
     }
 
     @Override
-    public Optional<Event> findById(String id) {
-        return Optional.ofNullable(repository.findById(id));
+    public Event findById(String id) {
+        return repository.findById(id);
     }
 
     @Override
     public void deleteById(String id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public EventDetailedResponce getDetailedById(String id) {
+        return null;
     }
 
     @Override
@@ -43,4 +49,4 @@ public class InMemoryEventServiceImpl implements EventService {
 }
 
 
-//TODO ist it working ??
+//TODO check if it works

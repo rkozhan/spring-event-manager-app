@@ -1,10 +1,13 @@
 package eventManager.service;
+import eventManager.model.Event;
 import eventManager.model.Registration;
 import eventManager.repository.RegistrationRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +23,14 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public void deleteById(String id) {
-        repository.deleteById(id);
+        Registration registration = this.findById(id);
+        repository.delete(registration);
     }
 
     @Override
-    public Optional<Registration> findById(String id) {
-        return repository.findById(id);
+    public Registration findById(String id) {
+        return repository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Registration with id " + id + " not found"));
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface RegistrationService {
     Registration create(Registration registration);
     void deleteById(String id);
-    Optional<Registration> findById(String id);
+    Registration findById(String id);
     List<Registration> findAll();
     List<Registration> findByUserId(String userId);
     List<Registration> findByEventId(String eventId);

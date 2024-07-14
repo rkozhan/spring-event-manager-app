@@ -1,6 +1,7 @@
 package eventManager.controller;
 
 import eventManager.model.Event;
+import eventManager.model.User;
 import eventManager.repository.EventRepository;
 import eventManager.service.EventService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,41 +28,48 @@ public class EventController {
         return ResponseEntity.ok(service.getAllUpcomingEvents());
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public ResponseEntity<Event> saveEvent(@RequestBody Event event) {
         return ResponseEntity.ok(service.save(event));
     }
 
-    //@PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
-    //@PreAuthorize("hasRole('ROLE_EDITOR')")  //TODO not working -> 403
-    //@PreAuthorize("isAuthorised")
-    public ResponseEntity getEventById(@PathVariable String id) {
-
-        Optional<Event> event = service.findById(id);
-
-        if (event.isPresent()) {
-            return ResponseEntity.ok(event.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The event with ID: " + id + " was not found.");
+    public ResponseEntity<?> getEventById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         }
     }
 
     @DeleteMapping("/{id}")
     //@PostAuthorize("returnObject.createdBy eq authorisation.name") //TODO not working
     //@PostAuthorize("returnObject.createdBy == principal.username")
-    public ResponseEntity deleteEventById(@PathVariable String id) {
-
-        Optional<Event> event = service.findById(id);
-
-        if(event.isPresent()) {
+    public ResponseEntity<String> deleteEventById(@PathVariable String id) {
+        try {
             service.deleteById(id);
-            return ResponseEntity.ok("Success.");
-        } else {
-            return ResponseEntity.ok("The event with id: " + id + " was not found.");
+            return ResponseEntity.ok("The event with id: " + id + " deleted successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         }
     }
 
-    //TODO update
+    @PutMapping()
+    public ResponseEntity<?> updateEvent(@RequestBody Event event) {
+        try {
+            return ResponseEntity.ok(service.update(event));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
+
+
+    @GetMapping("/detailed/{id}")
+    public ResponseEntity<?> getDetailedById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.getDetailedById(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
 }

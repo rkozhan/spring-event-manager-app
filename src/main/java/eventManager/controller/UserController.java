@@ -1,19 +1,16 @@
 package eventManager.controller;
-
 import eventManager.api.response.UserDetailedResponse;
 import eventManager.config.JwtProvider;
-import eventManager.experiments.TestDetailedEntity;
 import eventManager.model.User;
 import eventManager.service.UserService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -31,25 +28,19 @@ public class UserController {
         return ResponseEntity.ok(service.findAllUsers());
     }
 
-
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable String id) {
-        return service.findById(id);
-    }
-
-    @GetMapping("/email/{email}")
-    public ResponseEntity getUserByEmail(@PathVariable String email) {
-
-        Optional<User> user = service.findByEmail(email);
-
-        if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The user with email: " + email + " was not found.");
+    public ResponseEntity<?> getUserById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         }
     }
 
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return service.findByEmail(email);
+    }
 
     @GetMapping("/me")
     public ResponseEntity getMe(@RequestHeader("Authorization") String token) {
@@ -60,40 +51,41 @@ public class UserController {
         String email;
         try {
             email = jwtProvider.getEmailFromToken(token);
+            User user = service.findByEmail(email);
+            return ResponseEntity.ok(service.getDetailedById(user.getId()));
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid JWT token");
         }
-
-        Optional<User> user = service.findByEmail(email);
-        if (user.isPresent()) {
-            //return ResponseEntity.ok(user.get());
-            return ResponseEntity.ok(service.getDetailedById(user.get().getId()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("The user with email: " + email + " was not found.");
-        }
     }
 
 
-
-
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUserById(@PathVariable String id) {
-
-        User user = service.findById(id);
-
-        //if(user.isPresent()) {
+    public ResponseEntity<String> deleteUserById(@PathVariable String id) {
+        try {
             service.deleteById(id);
-            return ResponseEntity.ok("Success.");
-        //} else {
-          //  return ResponseEntity.ok("The user with id: " + id + " was not found.");
-        //}
-    }//TODO update
+            return ResponseEntity.ok("The user with id: " + id + " deleted successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
 
+    @PutMapping()
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        try {
+            return ResponseEntity.ok(service.update(user));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
 
     @GetMapping("/detailed/{id}")
-    public UserDetailedResponse getDetailedById(@PathVariable String id) {
-        return service.getDetailedById(id);
+    public ResponseEntity<?> getDetailedById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.getDetailedById(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
     }
 }
