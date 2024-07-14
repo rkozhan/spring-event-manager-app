@@ -91,6 +91,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event toogleIsCancelled(String eventId) {
+        Event event = this.findById(eventId);
+        event.setCancelled(!event.isCancelled());
+        return repository.save(event);
+    }
+
+    @Override
     public EventDetailedResponce getDetailedById(String id) {
         EventDetailedResponce eventDetailedResponce = new EventDetailedResponce(this.findById(id));
 

@@ -63,6 +63,15 @@ public class EventController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> toogleIsCancelled(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.toogleIsCancelled(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
+
 
     @GetMapping("/detailed/{id}")
     public ResponseEntity<?> getDetailedById(@PathVariable String id) {

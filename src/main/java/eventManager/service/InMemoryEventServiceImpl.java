@@ -46,6 +46,11 @@ public class InMemoryEventServiceImpl implements EventService {
     public Event update(Event event) {
         return repository.update(event);
     }
+
+    @Override
+    public Event toogleIsCancelled(String eventId) {
+        return null;
+    }
 }
 
 

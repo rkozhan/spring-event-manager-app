@@ -15,6 +15,8 @@ public interface EventService {
 
     Event update(Event event);
 
+    Event toogleIsCancelled(String eventId);
+
     void deleteById(String id);
 
     EventDetailedResponce getDetailedById(String id);
