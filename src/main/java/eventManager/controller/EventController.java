@@ -24,8 +24,13 @@ public class EventController {
     private final EventService service;
 
     @GetMapping()
-    public ResponseEntity<List<Event>> findAllEvents () {
+    public ResponseEntity<List<Event>> findAllUpcomingEvents () {
         return ResponseEntity.ok(service.getAllUpcomingEvents());
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Event>> findAllEvents () {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @PostMapping()
@@ -77,6 +82,15 @@ public class EventController {
     public ResponseEntity<?> getDetailedById(@PathVariable String id) {
         try {
             return ResponseEntity.ok(service.getDetailedById(id));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<?> getRandomDetailed() {
+        try {
+            return ResponseEntity.ok(service.getRandomDetailedEvent());
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         }

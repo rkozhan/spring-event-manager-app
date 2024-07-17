@@ -21,10 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -113,5 +110,16 @@ public class EventServiceImpl implements EventService {
         eventDetailedResponce.setParticipants(participants);
 
         return eventDetailedResponce;
+    }
+
+    @Override
+    public EventDetailedResponce getRandomDetailedEvent() {
+        List<Event> upcomingEvents = this.getAllUpcomingEvents();
+        if (upcomingEvents.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No upcoming events found");
+        }
+        int randomIndex = new Random().nextInt(upcomingEvents.size());
+        Event randomEvent = upcomingEvents.get(randomIndex);
+        return this.getDetailedById(randomEvent.getId());
     }
 }

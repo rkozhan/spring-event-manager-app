@@ -49,6 +49,16 @@ public class RegistrationController {
         }
     }
 
+    @DeleteMapping("/{eventId}/{userId}")
+    public ResponseEntity<String> deleteRegistrationById(@PathVariable String eventId, @PathVariable String userId) {
+        try {
+            service.deleteByEventIdAndUserId(eventId, userId);
+            return ResponseEntity.ok("The registration with  eventId " + eventId + " and userId " +userId  + " deleted successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+    }
+
     @GetMapping("/users/{userId}")
     public ResponseEntity<List<Registration>> findAllRegistrationsByUser(@PathVariable String userId) {
         List<Registration> registrations = service.findByUserId(userId);

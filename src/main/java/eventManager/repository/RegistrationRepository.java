@@ -16,4 +16,6 @@ public interface RegistrationRepository extends MongoRepository<Registration, St
 
     @Query(value = "{ 'userId' : ?0 }", delete = true)
     void deleteByEventId(String userId);
+
+    Optional<Registration> findByEventIdAndUserId(String eventId, String userId);
 }

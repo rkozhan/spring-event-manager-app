@@ -20,4 +20,6 @@ public interface EventService {
     void deleteById(String id);
 
     EventDetailedResponce getDetailedById(String id);
+
+    EventDetailedResponce getRandomDetailedEvent();
 }

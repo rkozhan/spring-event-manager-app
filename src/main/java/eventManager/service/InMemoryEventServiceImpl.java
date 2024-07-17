@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
+//TODO
 @Service
 @AllArgsConstructor
 public class InMemoryEventServiceImpl implements EventService {
@@ -39,6 +41,11 @@ public class InMemoryEventServiceImpl implements EventService {
 
     @Override
     public EventDetailedResponce getDetailedById(String id) {
+        return null;
+    }
+
+    @Override
+    public EventDetailedResponce getRandomDetailedEvent() {
         return null;
     }
 
