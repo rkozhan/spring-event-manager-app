@@ -1,16 +1,15 @@
 package eventManager.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Document("registrations")
 @CompoundIndexes({
         @CompoundIndex(name = "user_event_idx", def = "{'userId': 1, 'eventId': 1}", unique = true)
@@ -18,11 +17,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Registration {
     @Id
     private String id;
+    @NonNull
     private String userId;
+    @NonNull
     private String eventId;
-
-    public Registration(String userId, String eventId) {
-        this.userId = userId;
-        this.eventId = eventId;
-    }
 }

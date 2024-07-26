@@ -1,5 +1,4 @@
 package eventManager.controller;
-import eventManager.api.response.UserDetailedResponse;
 import eventManager.config.JwtProvider;
 import eventManager.model.User;
 import eventManager.service.UserService;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -59,7 +57,6 @@ public class UserController {
                     .body("Invalid JWT token");
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable String id) {

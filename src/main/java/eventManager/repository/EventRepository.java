@@ -12,5 +12,4 @@ public interface EventRepository extends MongoRepository<Event, String> {
     List<Event> findAllByOrderByDateAscTimeAsc();
 
     List<Event> findByCreatedBy(String createdBy);
-
 }

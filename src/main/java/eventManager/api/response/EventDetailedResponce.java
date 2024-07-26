@@ -20,15 +20,12 @@ public class EventDetailedResponce extends Event {
             event.getTitle(),
             event.getDescription(),
             event.getDate(),
-                event.getTime(),
-                event.getLocation(),
-                event.getCategory(),
-                event.getCreatedBy(),
-                event.getImgUrls(),
-                event.isCancelled()
+            event.getTime(),
+            event.getLocation(),
+            event.getCategory(),
+            event.getCreatedBy(),
+            event.getImgUrls(),
+            event.isCancelled()
         );
-    }
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
     }
 }

@@ -1,7 +1,5 @@
 package eventManager.service;
 import eventManager.api.response.UserDetailedResponse;
-import eventManager.experiments.TestDetailedEntity;
-import eventManager.experiments.TestEntity;
 import eventManager.model.Event;
 import eventManager.model.Registration;
 import eventManager.model.User;
@@ -9,7 +7,6 @@ import eventManager.repository.EventRepository;
 import eventManager.repository.RegistrationRepository;
 import eventManager.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.context.annotation.Primary;
