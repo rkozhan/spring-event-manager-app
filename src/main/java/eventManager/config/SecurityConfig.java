@@ -51,17 +51,15 @@ public class SecurityConfig {
     }
 
     private CorsConfigurationSource corsConfigurationSource() {
-        return new CorsConfigurationSource () {
+        return new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:8080",
-                        "http://localhost:5173",
-                        "http://localhost:4200",
-                        "http://localhost:3000"
-                ));
-                config.setAllowedMethods(Collections.singletonList("*"));
+                // Access from any domain
+                config.setAllowedOriginPatterns(Collections.singletonList("*"));
+                // or use config.setAllowedOrigins(Collections.singletonList("*"));
+
+                config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 config.setAllowCredentials(true);
                 config.setAllowedHeaders(Collections.singletonList("*"));
                 config.setExposedHeaders(Arrays.asList("Authorization"));
