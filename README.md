@@ -37,6 +37,7 @@ This is the backend service for the Event Manager application, built using Sprin
    ```sh
    mvn install
 
+
 3. **Run the application:**:
    ```sh
    mvn spring-boot:run
@@ -70,7 +71,6 @@ The application uses Spring Boot's default configurations. For custom configurat
 - **`PUT /api/v1/events`**: Updates an event.
 - **`GET /api/v1/events/{id}`**: Retrieves an event by ID.
 - **`DELETE /api/v1/events/{id}`**: Deletes an event by ID.
--
 #### Additional Endpoints
 - **`GET /api/v1/events`**: Retrieves all upcoming events.
 - **`PUT /api/v1/events/{id}`**: Toggles the `isCancelled` status of an event.
@@ -82,7 +82,6 @@ The application uses Spring Boot's default configurations. For custom configurat
 - **`GET /api/v1/users/{id}`**: Retrieves a user by ID.
 - **`PUT /api/v1/users`**: Updates a user.
 - **`DELETE /api/v1/users/{id}`**: Deletes a user.
-
 #### Additional Endpoints
 - **`GET /api/v1/users/email/{email}`**: Retrieves a user by email.
 - **`GET /api/v1/users/me`**: Retrieves the current user's details based on the JWT token.
@@ -118,7 +117,6 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## Status
 
 This project is currently in **beta** and is still under active development.
-
 
 
 killing event-manager-0.0.1-SNAPSHOT.jar:
