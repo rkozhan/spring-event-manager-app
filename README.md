@@ -2,6 +2,8 @@
 
 This is the backend service for the Event Manager application, built using Spring Boot. The backend provides a comprehensive API for managing users, events, and registrations. It also includes authentication and authorization features using JWT.
 
+This application was created as a graduation project for Coders.Bay.
+
 ## Features
 
 - **User Management**: Sign up, login, and manage user profiles.
@@ -18,7 +20,26 @@ This is the backend service for the Event Manager application, built using Sprin
 - **Image Uploads**: Support for adding images to events for better visual representation.
 - **Email Verification**: Require email confirmation when creating an editor account.
 
-## Getting Started
+## Frontend
+
+The frontend of the Event Manager application is built with Angular. It provides a user-friendly interface for interacting with the backend services.
+
+- **Frontend Repository:** [Event Manager Frontend on GitHub](https://github.com/rkozhan/angular-event-mgr)
+- **Live Demo:** [Event Manager Application on GitHub Pages](https://rkozhan.github.io/angular-event-mgr)
+
+
+## API Documentation
+
+You can access the live API here: [Spring Event Manager API](https://spring-event-manager-app.onrender.com)
+
+For example, you can view events at: [https://spring-event-manager-app.onrender.com/api/v1/events](https://spring-event-manager-app.onrender.com/api/v1/events)
+
+## Test User Credentials
+
+- **Email:** `user@mail.com`
+- **Password:** `password`
+
+## Running Locally
 
 ### Prerequisites
 
@@ -51,7 +72,8 @@ This is the backend service for the Event Manager application, built using Sprin
 - **Security**: JWT provider and configuration for securing endpoints.
 
 ## Configuration
-The application uses Spring Boot's default configurations. For custom configurations, modify the application.properties or application.yml file.
+The application uses Spring Boot's default configurations. For custom configurations, modify the application.yml file.
+Default Port: 8080 (http://localhost:8080/api/v1/).
 
 ### Environment Variables
 - **JWT_SECRET**: Secret key for signing JWT tokens.
