@@ -26,7 +26,7 @@ import java.util.Set;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
