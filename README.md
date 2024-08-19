@@ -37,7 +37,12 @@ For example, you can view events at: [https://spring-event-manager-app.onrender.
 ## Test User Credentials
 
 - **Email:** `user@mail.com`
-- **Password:** `password`
+- **Password:** `user`
+
+## Test Editor Credentials
+
+- **Email:** `manager@mail.com`
+- **Password:** `manager`
 
 ## Running Locally
 
@@ -144,3 +149,5 @@ This project is currently in **beta** and is still under active development.
 killing event-manager-0.0.1-SNAPSHOT.jar:
 jps
 taskkill /PID <PID> /F
+
+
