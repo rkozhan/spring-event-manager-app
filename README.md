@@ -25,7 +25,7 @@ This application was created as a graduation project for Coders.Bay.
 The frontend of the Event Manager application is built with Angular. It provides a user-friendly interface for interacting with the backend services.
 
 - **Frontend Repository:** [Event Manager Frontend on GitHub](https://github.com/rkozhan/angular-event-mgr)
-- **Live Demo:** [Event Manager Application on GitHub Pages](https://rkozhan.github.io/angular-event-mgr)
+- **Live Demo:** [Event Manager Application live on render.com](https://angular-event-mgr.onrender.com)
 
 
 ## API Documentation
